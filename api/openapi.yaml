@@ -1,0 +1,387 @@
+openapi: 3.0.0
+info:
+  title: Social Media API
+  description: "API for managing users, posts, comments, likes, follows, and explore\
+    \ functionality in a social media platform."
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/ANDREWDBLAD/social-media/1.0.0
+  description: SwaggerHub API Auto Mocking
+paths:
+  /users:
+    get:
+      summary: Get a list of all users.
+      operationId: usersGET
+      responses:
+        "200":
+          description: A list of users.
+      x-swagger-router-controller: Default
+    post:
+      summary: Create a new user.
+      operationId: usersPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+        required: true
+      responses:
+        "201":
+          description: User created successfully.
+      x-swagger-router-controller: Default
+  /users/{user_id}:
+    get:
+      summary: Get information about a specific user.
+      operationId: usersUser_idGET
+      parameters:
+      - name: user_id
+        in: path
+        description: ID of the user to retrieve.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: User information retrieved successfully.
+        "404":
+          description: User not found.
+      x-swagger-router-controller: Default
+    put:
+      summary: Update user information.
+      operationId: usersUser_idPUT
+      parameters:
+      - name: user_id
+        in: path
+        description: ID of the user to update.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+        required: true
+      responses:
+        "200":
+          description: User information updated successfully.
+        "404":
+          description: User not found.
+      x-swagger-router-controller: Default
+    delete:
+      summary: Delete a user account.
+      operationId: usersUser_idDELETE
+      parameters:
+      - name: user_id
+        in: path
+        description: ID of the user to delete.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: User account deleted successfully.
+        "404":
+          description: User not found.
+      x-swagger-router-controller: Default
+  /posts:
+    get:
+      summary: Get a list of all posts.
+      operationId: postsGET
+      responses:
+        "200":
+          description: A list of posts.
+      x-swagger-router-controller: Default
+    post:
+      summary: Create a new post.
+      operationId: postsPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostInput'
+        required: true
+      responses:
+        "201":
+          description: Post created successfully.
+      x-swagger-router-controller: Default
+  /posts/{post_id}:
+    get:
+      summary: Get information about a specific post.
+      operationId: postsPost_idGET
+      parameters:
+      - name: post_id
+        in: path
+        description: ID of the post to retrieve.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Post information retrieved successfully.
+        "404":
+          description: Post not found.
+      x-swagger-router-controller: Default
+    put:
+      summary: Update a post.
+      operationId: postsPost_idPUT
+      parameters:
+      - name: post_id
+        in: path
+        description: ID of the post to update.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostInput'
+        required: true
+      responses:
+        "200":
+          description: Post updated successfully.
+        "404":
+          description: Post not found.
+      x-swagger-router-controller: Default
+    delete:
+      summary: Delete a post.
+      operationId: postsPost_idDELETE
+      parameters:
+      - name: post_id
+        in: path
+        description: ID of the post to delete.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: Post deleted successfully.
+        "404":
+          description: Post not found.
+      x-swagger-router-controller: Default
+  /posts/{post_id}/comments:
+    get:
+      summary: Get comments for a specific post.
+      operationId: postsPost_idCommentsGET
+      parameters:
+      - name: post_id
+        in: path
+        description: ID of the post to retrieve comments for.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: A list of comments for the post.
+      x-swagger-router-controller: Default
+    post:
+      summary: Add a new comment to a post.
+      operationId: postsPost_idCommentsPOST
+      parameters:
+      - name: post_id
+        in: path
+        description: ID of the post to add a comment to.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentInput'
+        required: true
+      responses:
+        "201":
+          description: Comment added successfully.
+      x-swagger-router-controller: Default
+  /comments/{comment_id}:
+    get:
+      summary: Get information about a specific comment.
+      operationId: commentsComment_idGET
+      parameters:
+      - name: comment_id
+        in: path
+        description: ID of the comment to retrieve.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Comment information retrieved successfully.
+        "404":
+          description: Comment not found.
+      x-swagger-router-controller: Default
+    put:
+      summary: Update a comment.
+      operationId: commentsComment_idPUT
+      parameters:
+      - name: comment_id
+        in: path
+        description: ID of the comment to update.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentInput'
+        required: true
+      responses:
+        "200":
+          description: Comment updated successfully.
+        "404":
+          description: Comment not found.
+      x-swagger-router-controller: Default
+    delete:
+      summary: Delete a comment.
+      operationId: commentsComment_idDELETE
+      parameters:
+      - name: comment_id
+        in: path
+        description: ID of the comment to delete.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: Comment deleted successfully.
+        "404":
+          description: Comment not found.
+      x-swagger-router-controller: Default
+  /posts/{post_id}/like:
+    post:
+      summary: Like a post.
+      operationId: postsPost_idLikePOST
+      parameters:
+      - name: post_id
+        in: path
+        description: ID of the post to like.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Post liked successfully.
+      x-swagger-router-controller: Default
+    delete:
+      summary: Unlike a post.
+      operationId: postsPost_idLikeDELETE
+      parameters:
+      - name: post_id
+        in: path
+        description: ID of the post to unlike.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Post unliked successfully.
+      x-swagger-router-controller: Default
+  /users/{user_id}/follow:
+    post:
+      summary: Follow a user.
+      operationId: usersUser_idFollowPOST
+      parameters:
+      - name: user_id
+        in: path
+        description: ID of the user to follow.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: User followed successfully.
+      x-swagger-router-controller: Default
+    delete:
+      summary: Unfollow a user.
+      operationId: usersUser_idFollowDELETE
+      parameters:
+      - name: user_id
+        in: path
+        description: ID of the user to unfollow.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: User unfollowed successfully.
+      x-swagger-router-controller: Default
+  /explore/users:
+    get:
+      summary: Get a list of recommended users.
+      operationId: exploreUsersGET
+      responses:
+        "200":
+          description: A list of recommended users.
+      x-swagger-router-controller: Default
+  /explore/posts:
+    get:
+      summary: Get a list of recommended posts.
+      operationId: explorePostsGET
+      responses:
+        "200":
+          description: A list of recommended posts.
+      x-swagger-router-controller: Default
+components:
+  schemas:
+    UserInput:
+      type: object
+      properties:
+        username:
+          type: string
+          example: john_doe
+        email:
+          type: string
+          format: email
+          example: john.doe@example.com
+        password:
+          type: string
+          format: password
+          example: password123
+    PostInput:
+      type: object
+      properties:
+        title:
+          type: string
+          example: New Post
+        content:
+          type: string
+          example: This is the content of the new post.
+    CommentInput:
+      type: object
+      properties:
+        content:
+          type: string
+          example: This is a comment on the post.
