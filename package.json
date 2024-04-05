@@ -17,5 +17,8 @@
     "js-yaml": "^3.3.0",
     "node": "^21.7.1",
     "oas3-tools": "^2.2.3"
+  },
+  "devDependencies": {
+    "swagger-autogen": "^2.23.7"
   }
 }
