@@ -14,8 +14,10 @@
   "private": true,
   "dependencies": {
     "connect": "^3.2.0",
+    "dotenv": "^16.4.5",
     "js-yaml": "^3.3.0",
-    "node": "^21.7.1",
+    "mongodb": "^6.5.0",
+    "node": "^21.7.2",
     "oas3-tools": "^2.2.3"
   },
   "devDependencies": {

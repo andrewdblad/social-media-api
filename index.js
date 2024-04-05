@@ -1,24 +1,38 @@
 'use strict';
+const mongodb = require('./db/connect');
+const express = require('express');
+const path = require('path');
+const http = require('http');
+const oas3Tools = require('oas3-tools');
+const serverPort = 8080;
 
-var path = require('path');
-var http = require('http');
-
-var oas3Tools = require('oas3-tools');
-var serverPort = 8080;
-
-// swaggerRouter configuration
-var options = {
+// SwaggerRouter configuration
+const options = {
     routing: {
         controllers: path.join(__dirname, './controllers')
     },
 };
 
-var expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
-var app = expressAppConfig.getApp();
+const expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
+const app = expressAppConfig.getApp();
 
 // Initialize the Swagger middleware
-http.createServer(app).listen(serverPort, function () {
+const server = http.createServer(app);
+
+server.listen(serverPort, function () {
     console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
     console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
 });
 
+const routes = express.Router();
+routes.get('/', (req, res, next) => {
+    res.json('Andrew Blad');
+});
+
+mongodb.initDb((err, db) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log('Connected to DB');
+    }
+});
