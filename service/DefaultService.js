@@ -1,5 +1,7 @@
 'use strict';
 
+const { ObjectId } = require('mongodb');
+const { connectToDB } = require('../db/connect'); // Assuming connectToDB function is defined in a separate file
 
 // Delete a comment by comment_id
 async function deleteComment(comment_id) {

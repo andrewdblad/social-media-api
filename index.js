@@ -1,38 +1,41 @@
-'use strict';
 const mongodb = require('./db/connect');
 const express = require('express');
 const path = require('path');
 const http = require('http');
-const oas3Tools = require('oas3-tools');
-const serverPort = 8080;
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const bodyParser = require('body-parser');
 
-// SwaggerRouter configuration
-const options = {
-    routing: {
-        controllers: path.join(__dirname, './controllers')
-    },
-};
+const serverPort = 8081;
 
-const expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
-const app = expressAppConfig.getApp();
+// Create Express app
+const app = express();
 
-// Initialize the Swagger middleware
-const server = http.createServer(app);
+// Define routes
+app.use(bodyParser.json());
+app.use('/', require('./routes'));
 
-server.listen(serverPort, function () {
-    console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
-    console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
-});
+// Load the OpenAPI specification
+const openApiDoc = YAML.load(path.join(__dirname, 'api/openapi.yaml'));
 
-const routes = express.Router();
-routes.get('/', (req, res, next) => {
-    res.json('Andrew Blad');
-});
+// Serve Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApiDoc));
 
+
+// Connect to MongoDB
 mongodb.initDb((err, db) => {
     if (err) {
         console.log(err);
     } else {
         console.log('Connected to DB');
+        // Start the server after MongoDB connection is established
+        const server = http.createServer(app);
+        server.listen(serverPort, function () {
+            console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
+            console.log('Swagger-ui is available on http://localhost:%d/api-docs', serverPort);
+        });
     }
 });
+
+
+

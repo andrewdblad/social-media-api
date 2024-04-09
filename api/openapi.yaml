@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
   title: Social Media API
-  description: "API for managing users, posts, comments, likes, follows, and explore\
-    \ functionality in a social media platform."
+  description: "API for managing users, posts, comments, likes, follows, and explore
+      functionality in a social media platform."
   version: 1.0.0
 servers:
 - url: https://virtserver.swaggerhub.com/ANDREWDBLAD/social-media/1.0.0
