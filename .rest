@@ -12,7 +12,7 @@ Content-Type: application/json
 }
 
 ### Get a specific user by ID
-GET http://localhost:8081/users/6616d47c45564106689a9857
+GET http://localhost:8081/users/6616d3006c6f76f8f77b2127
 
 ### Update a specific user by ID
 PUT http://localhost:8081/users/123
