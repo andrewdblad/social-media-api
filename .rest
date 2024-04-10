@@ -1,2 +1,117 @@
 ### Get all users
 GET http://localhost:8081/users
+
+### Create a new user
+POST http://localhost:8081/users
+Content-Type: application/json
+
+{
+  "name": "Andrew Blad",
+  "email": "john@example.com",
+  "password": "password12342"
+}
+
+### Get a specific user by ID
+GET http://localhost:8081/users/6616d47c45564106689a9857
+
+### Update a specific user by ID
+PUT http://localhost:8081/users/123
+Content-Type: application/json
+
+{
+  "name": "Updated Name",
+  "email": "updated@example.com"
+}
+
+### Delete a specific user by ID
+DELETE http://localhost:8081/users/123
+
+### Get all posts
+GET http://localhost:8081/posts
+
+### Create a new post
+POST http://localhost:8081/posts
+Content-Type: application/json
+
+{
+  "title": "New Post",
+  "content": "This is the content of the new post.",
+  "author": "John Doe",
+  "created_at": "2024-04-10T12:00:00Z",
+  "likes": 10,
+  "tags": ["technology", "programming"],
+  "comments": [
+    {
+      "user": "Alice",
+      "comment": "Great post!"
+    },
+    {
+      "user": "Bob",
+      "comment": "Interesting read."
+    }
+  ]
+}
+
+
+
+### Get a specific post by ID
+GET http://localhost:8081/posts/456
+
+### Update a specific post by ID
+PUT http://localhost:8081/posts/456
+Content-Type: application/json
+
+{
+  "title": "New Post",
+  "content": "This is the content of the new post.",
+  "author": "John Doe",
+  "category": "Technology",
+  "tags": ["Node.js", "Express", "MongoDB"],
+  "createdAt": "2024-04-10T12:00:00Z",
+  "likes": 100
+}
+
+
+### Delete a specific post by ID
+DELETE http://localhost:8081/posts/456
+
+### Get all comments for a specific post
+GET http://localhost:8081/posts/456/comments
+
+### Add a new comment to a specific post
+POST http://localhost:8081/posts/6616d74f3351e86cbbd70564/comments
+Content-Type: application/json
+
+{
+  "content": "This is a new comment on the post.",
+  "user": "Alice",
+  "created_at": "2024-04-10T14:30:00Z",
+  "likes": 3,
+  "replies": [
+    {
+      "user": "Bob",
+      "content": "Thanks for sharing!"
+    }
+  ]
+}
+
+
+### Get a specific comment by ID
+GET http://localhost:8081/comments/789
+
+### Update a specific comment by ID
+PUT http://localhost:8081/comments/789
+Content-Type: application/json
+
+{
+  "content": "Updated comment content."
+}
+
+### Delete a specific comment by ID
+DELETE http://localhost:8081/comments/789
+
+### Get all users for exploration
+GET http://localhost:8081/explore/users
+
+### Get all posts for exploration
+GET http://localhost:8081/explore/posts

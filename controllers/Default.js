@@ -205,13 +205,18 @@ async function followUser(user_id) {
 
 async function getUser(user_id) {
   try {
-      const db = await getDb();
-      return await db.collection('user').findOne({ _id: new ObjectId(user_id) });
+    const ObjectId = require('mongodb').ObjectId;
+    if (!ObjectId.isValid(user_id)) {
+      throw new Error('Invalid user ID format');
+    }
+    const db = await getDb();
+    return await db.collection('user').findOne({ _id: new ObjectId(user_id) });
   } catch (err) {
-      console.error('Error getting user', err);
-      throw err;
+    console.error('Error getting user', err);
+    throw err;
   }
 }
+
 
 async function updateUser(body, user_id) {
   try {
@@ -251,107 +256,110 @@ module.exports = {
   commentsComment_idDELETE: function(req, res, next, comment_id) {
     deleteComment(comment_id)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   commentsComment_idGET: function(req, res, next, comment_id) {
     getComment(comment_id)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   commentsComment_idPUT: function(req, res, next, body, comment_id) {
     updateComment(body, comment_id)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   explorePostsGET: function(req, res, next) {
     explorePosts()
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   exploreUsersGET: function(req, res, next) {
     exploreUsers()
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   postsGET: function(req, res, next) {
     getPosts()
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
-  postsPOST: function(req, res, next, body) {
+  postsPOST: function(req, res, next) {
+    const body = req.body;
     createPost(body)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   postsPost_idCommentsGET: function(req, res, next, post_id) {
     getPostComments(post_id)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   postsPost_idCommentsPOST: function(req, res, next, body, post_id) {
     addPostComment(body, post_id)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   postsPost_idDELETE: function(req, res, next, post_id) {
     deletePost(post_id)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   postsPost_idGET: function(req, res, next, post_id) {
     getPost(post_id)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   postsPost_idLikeDELETE: function(req, res, next, post_id) {
     unlikePost(post_id)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   postsPost_idLikePOST: function(req, res, next, post_id) {
     likePost(post_id)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   postsPost_idPUT: function(req, res, next, body, post_id) {
     updatePost(body, post_id)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   usersGET: function(req, res, next) {
     getUsers()
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
-  usersPOST: function(req, res, next, body) {
+  usersPOST: function(req, res, next) {
+    const body = req.body;
     createUser(body)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   usersUser_idDELETE: function(req, res, next, user_id) {
     deleteUser(user_id)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   usersUser_idFollowDELETE: function(req, res, next, user_id) {
     unfollowUser(user_id)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   usersUser_idFollowPOST: function(req, res, next, user_id) {
     followUser(user_id)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   usersUser_idGET: function(req, res, next, user_id) {
     getUser(user_id)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   },
   usersUser_idPUT: function(req, res, next, body, user_id) {
     updateUser(body, user_id)
       .then(response => utils.writeJson(res, response))
-      .catch(response => utils.writeJson(res, response));
+      .catch(error => utils.writeJson(res, { error: error.message }, 500));
   }
+  
 };
 

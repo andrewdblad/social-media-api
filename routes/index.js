@@ -22,11 +22,6 @@ router.get('/comments/:comment_id', controller.commentsComment_idGET);
 router.put('/comments/:comment_id', controller.commentsComment_idPUT);
 router.delete('/comments/:comment_id', controller.commentsComment_idDELETE);
 
-router.post('/posts/:post_id/like', controller.postsPost_idLikePOST);
-router.delete('/posts/:post_id/like', controller.postsPost_idLikeDELETE);
-
-router.post('/users/:user_id/follow', controller.usersUser_idFollowPOST);
-router.delete('/users/:user_id/follow', controller.usersUser_idFollowDELETE);
 
 router.get('/explore/users', controller.exploreUsersGET);
 router.get('/explore/posts', controller.explorePostsGET);
