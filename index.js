@@ -19,7 +19,7 @@ app.use('/', require('./routes'));
 const openApiDoc = YAML.load(path.join(__dirname, 'api/openapi.yaml'));
 
 // Serve Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApiDoc));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(openApiDoc));
 
 
 // Connect to MongoDB
@@ -32,7 +32,7 @@ mongodb.initDb((err, db) => {
         const server = http.createServer(app);
         server.listen(serverPort, function () {
             console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
-            console.log('Swagger-ui is available on http://localhost:%d/api-docs', serverPort);
+            console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
         });
     }
 });
